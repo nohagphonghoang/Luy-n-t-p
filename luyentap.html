@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm Hóa Học: Sulfuric Acid (H₂SO₄)</title>
+    <!-- Font chữ hỗ trợ tiếng Việt chuẩn, sắc nét -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c2bd9;
+            --primary-dark: #4c1d95;
+            --bg-gradient: linear-gradient(135deg, #2e1065 0%, #4c1d95 50%, #1e1b4b 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --opt-a: #3b82f6;
+            --opt-a-shadow: #1d4ed8;
+            --opt-b: #10b981;
+            --opt-b-shadow: #047857;
+            --opt-c: #f59e0b;
+            --opt-c-shadow: #b45309;
+            --opt-d: #ec4899;
+            --opt-d-shadow: #be185d;
+            --correct: #16a34a;
+            --correct-bg: #dcfce7;
+            --wrong: #dc2626;
+            --wrong-bg: #fee2e2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            overflow-x: hidden;
+        }
+
+        /* Định dạng chỉ số hóa học chuẩn */
+        sub, sup {
+            font-size: 0.72em;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+        }
+        sub { bottom: -0.25em; }
+        sup { top: -0.45em; }
+
+        .container {
+            width: 100%;
+            max-width: 920px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .screen {
+            display: none;
+            padding: 36px 32px;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Màn hình bắt đầu */
+        .start-screen {
+            text-align: center;
+            padding: 48px 32px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #f3e8ff;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.875rem;
+            padding: 6px 16px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .start-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+
+        .start-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 28px;
+            line-height: 1.6;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .info-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px 12px;
+        }
+
+        .info-box strong {
+            display: block;
+            font-size: 1.35rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .info-box span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .player-input-group {
+            max-width: 400px;
+            margin: 0 auto 24px;
+        }
+
+        .player-input {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 14px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .player-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 43, 217, 0.15);
+        }
+
+        .name-warning {
+            margin-top: 10px;
+            padding: 10px 14px;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            background: #fffbeb;
+            color: #b45309;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 var(--primary-dark);
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--primary-dark);
+        }
+
+        /* Header trong lúc làm bài */
+        .quiz-header {
+            background: #f8fafc;
+            padding: 16px 28px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .progress-wrapper {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6c2bd9, #ec4899);
+            width: 10%;
+            border-radius: 999px;
+            transition: width 0.35s ease;
+        }
+
+        .stats-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stat-pill {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .streak-pill {
+            background: #fff7ed;
+            border-color: #fed7aa;
+            color: #ea580c;
+        }
+
+        .sound-btn {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        /* Khu vực câu hỏi */
+        .question-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .q-type-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: #ede9fe;
+            color: var(--primary);
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            white-space: pre-line;
+        }
+
+        /* Lưới đáp án trắc nghiệm kiểu Quizizz */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .option-btn {
+            border: none;
+            border-radius: 16px;
+            padding: 18px 20px;
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: transform 0.15s, filter 0.15s, opacity 0.2s;
+            position: relative;
+            line-height: 1.45;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            filter: brightness(1.06);
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: translateY(3px);
+        }
+
+        .option-btn[data-index="0"] { background: var(--opt-a); box-shadow: 0 5px 0 var(--opt-a-shadow); }
+        .option-btn[data-index="1"] { background: var(--opt-b); box-shadow: 0 5px 0 var(--opt-b-shadow); }
+        .option-btn[data-index="2"] { background: var(--opt-c); box-shadow: 0 5px 0 var(--opt-c-shadow); }
+        .option-btn[data-index="3"] { background: var(--opt-d); box-shadow: 0 5px 0 var(--opt-d-shadow); }
+
+        .option-letter {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        .option-btn.dimmed {
+            opacity: 0.4;
+            transform: scale(0.98);
+        }
+
+        .option-btn.correct-ans {
+            background: var(--correct) !important;
+            box-shadow: 0 5px 0 #15803d !important;
+            opacity: 1 !important;
+            transform: scale(1.02);
+        }
+
+        .option-btn.wrong-ans {
+            background: var(--wrong) !important;
+            box-shadow: 0 5px 0 #991b1b !important;
+            opacity: 1 !important;
+            animation: shake 0.35s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        /* Khung giải thích & phản hồi đúng/sai */
+        .feedback-panel {
+            margin-top: 24px;
+            border-radius: 16px;
+            padding: 18px 22px;
+            display: none;
+            animation: slideUp 0.25s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-panel.correct {
+            display: block;
+            background: var(--correct-bg);
+            border: 2px solid #86efac;
+            color: #14532d;
+        }
+
+        .feedback-panel.wrong {
+            display: block;
+            background: var(--wrong-bg);
+            border: 2px solid #fca5a5;
+            color: #7f1d1d;
+        }
+
+        .feedback-header {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback-explain {
+            font-size: 0.98rem;
+            line-height: 1.55;
+        }
+
+        .next-row {
+            margin-top: 22px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Màn hình tổng kết */
+        .result-screen {
+            text-align: center;
+        }
+
+        .trophy {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .result-subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 28px;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .sum-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px 10px;
+        }
+
+        .sum-card strong {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .sum-card span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .review-section {
+            text-align: left;
+            margin-top: 28px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 24px;
+        }
+
+        .review-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .review-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #ffffff;
+        }
+
+        .review-item.is-correct {
+            border-left: 5px solid var(--correct);
+        }
+
+        .review-item.is-wrong {
+            border-left: 5px solid var(--wrong);
+        }
+
+        .review-q {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.98rem;
+            line-height: 1.5;
+        }
+
+        .review-ans {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .review-exp {
+            font-size: 0.88rem;
+            color: #475569;
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 700px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .start-title {
+                font-size: 1.75rem;
+            }
+            .screen {
+                padding: 24px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- MÀN HÌNH 1: BẮT ĐẦU -->
+    <div id="startScreen" class="screen start-screen active">
+        <span class="badge">Hóa Học 11 • Bài 8: Sulfuric Acid</span>
+        <h1 class="start-title">Trắc Nghiệm: Sulfuric Acid (H<sub>2</sub>SO<sub>4</sub>)</h1>
+        <p class="start-desc">
+            Bộ 10 câu hỏi trắc nghiệm khách quan nhiều lựa chọn củng cố kiến thức về cấu tạo, tính chất vật lí, quy tắc an toàn và tính chất hóa học của H<sub>2</sub>SO<sub>4</sub>.
+        </p>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <strong>10 Câu</strong>
+                <span>Trắc nghiệm A, B, C, D</span>
+            </div>
+            <div class="info-box">
+                <strong>Tức thì</strong>
+                <span>Chấm điểm & giải thích</span>
+            </div>
+            <div class="info-box">
+                <strong>Chuẩn</strong>
+                <span>Công thức & phông chữ</span>
+            </div>
+        </div>
+
+        <div class="player-input-group">
+            <input type="text" id="studentName" class="player-input" placeholder="Nhập họ tên học sinh (bắt buộc)..." required aria-describedby="nameWarning" oninput="clearNameWarning()">
+            <p id="nameWarning" class="name-warning" role="alert" hidden>Vui lòng nhập họ tên để bắt đầu làm bài.</p>
+        </div>
+
+        <button class="btn-primary" onclick="startQuiz()">
+            Bắt đầu làm bài 🚀
+        </button>
+    </div>
+
+    <!-- MÀN HÌNH 2: LÀM BÀI -->
+    <div id="quizScreen" class="screen" style="padding: 0;">
+        <div class="quiz-header">
+            <div class="progress-wrapper">
+                <div class="progress-top">
+                    <span id="questionCounter">Câu 1 / 10</span>
+                    <span id="accuracyDisplay">Chính xác: 0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-pill streak-pill" title="Chuỗi trả lời đúng liên tiếp">
+                    🔥 <span id="streakCount">0</span>
+                </div>
+                <div class="stat-pill" title="Tổng điểm">
+                    ⭐ <span id="scoreCount">0</span>
+                </div>
+                <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Bật/Tắt âm thanh">
+                    🔊
+                </button>
+            </div>
+        </div>
+
+        <div style="padding: 28px 32px;">
+            <div class="question-meta">
+                <span class="q-type-tag">Trắc nghiệm 4 lựa chọn</span>
+            </div>
+
+            <div id="questionText" class="question-text"></div>
+
+            <!-- Vùng trắc nghiệm -->
+            <div id="mcqContainer" class="options-grid"></div>
+
+            <!-- Phản hồi đúng / sai & giải thích -->
+            <div id="feedbackPanel" class="feedback-panel">
+                <div id="feedbackHeader" class="feedback-header"></div>
+                <div id="feedbackExplain" class="feedback-explain"></div>
+            </div>
+
+            <div class="next-row">
+                <button id="nextBtn" class="btn-primary" style="display: none;" onclick="nextQuestion()">
+                    Câu tiếp theo ➔
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH 3: KẾT QUẢ -->
+    <div id="resultScreen" class="screen result-screen">
+        <div class="trophy" id="trophyIcon">🏆</div>
+        <h2 class="result-title" id="resultGreeting">Hoàn thành xuất sắc!</h2>
+        <p class="result-subtitle" id="resultSubtitle">Dưới đây là kết quả chi tiết bài làm của bạn</p>
+
+        <div class="summary-cards">
+            <div class="sum-card">
+                <strong id="finalScore">0</strong>
+                <span>Tổng điểm</span>
+            </div>
+            <div class="sum-card">
+                <strong id="finalCorrect">0/10</strong>
+                <span>Số câu đúng</span>
+            </div>
+            <div class="sum-card">
+                <strong id="finalAccuracy">0%</strong>
+                <span>Tỉ lệ chính xác</span>
+            </div>
+            <div class="sum-card">
+                <strong id="maxStreak">0</strong>
+                <span>Chuỗi đúng dài nhất</span>
+            </div>
+        </div>
+
+        <button class="btn-primary" onclick="restartQuiz()">
+            Làm lại bài tập 🔄
+        </button>
+
+        <div class="review-section">
+            <h3 class="review-title">📋 Xem lại chi tiết từng câu hỏi</h3>
+            <div id="reviewList"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Bộ 10 câu trắc nghiệm nhiều lựa chọn theo đúng đề và đáp án Thẻ 4
+    const quizData = [
+        {
+            question: "Câu 1: Phát biểu nào sau đây về nguyên tử nguyên tố sulfur trong phân tử H<sub>2</sub>SO<sub>4</sub> là đúng?",
+            options: [
+                "Tạo được 4 liên kết cộng hoá trị.",
+                "Có hoá trị VI và số oxi hoá +6.",
+                "Tạo liên kết với nguyên tử oxygen và nguyên tử hydrogen.",
+                "Tạo liên kết S – H là liên kết cộng hoá trị phân cực."
+            ],
+            correct: 1, // B
+            explanation: "Trong phân tử H<sub>2</sub>SO<sub>4</sub>, nguyên tử S nằm ở trung tâm, liên kết với 4 nguyên tử O (không liên kết trực tiếp với H). Sulfur có cộng hóa trị VI và số oxi hóa là +6."
+        },
+        {
+            question: "Câu 2: Cách pha loãng dung dịch H<sub>2</sub>SO<sub>4</sub> đặc nào sau đây đúng?",
+            options: [
+                "Rót nhanh acid vào nước và khuấy đều.",
+                "Rót nhanh nước vào acid và khuấy đều.",
+                "Rót từ từ nước vào acid và khuấy đều.",
+                "Rót từ từ acid vào nước và khuấy đều."
+            ],
+            correct: 3, // D
+            explanation: "H<sub>2</sub>SO<sub>4</sub> đặc tan trong nước tỏa rất nhiều nhiệt và nặng hơn nước. Vì vậy phải rót từ từ acid vào nước và khuấy đều để nhiệt phân tán đều, tránh sôi bắn gây bỏng."
+        },
+        {
+            question: "Câu 3: Bước sơ cứu đầu tiên cần làm ngay khi một người bị bỏng sulfuric acid là",
+            options: [
+                "rửa với nước lạnh nhiều lần.",
+                "trung hoà acid bằng NaHCO<sub>3</sub>.",
+                "băng bó tạm thời vết bỏng.",
+                "đưa đến cơ sở y tế gần nhất."
+            ],
+            correct: 0, // A
+            explanation: "Khi bị bỏng sulfuric acid, cần nhanh chóng rửa ngay vết bỏng với nước lạnh nhiều lần (xả dưới vòi nước sạch chảy nhẹ 15–20 phút) để làm giảm lượng acid bám trên da."
+        },
+        {
+            question: "Câu 4: Sản phẩm thu được khi cho dung dịch H<sub>2</sub>SO<sub>4</sub> loãng tác dụng với Fe là",
+            options: [
+                "Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> và H<sub>2</sub>.",
+                "FeSO<sub>4</sub> và H<sub>2</sub>.",
+                "FeSO<sub>4</sub> và SO<sub>2</sub>.",
+                "Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> và SO<sub>2</sub>."
+            ],
+            correct: 1, // B
+            explanation: "Dung dịch H<sub>2</sub>SO<sub>4</sub> loãng thể hiện tính acid thông thường (oxi hóa bởi ion H<sup>+</sup>), đưa Fe lên số oxi hóa +2: Fe + H<sub>2</sub>SO<sub>4</sub> (loãng) → FeSO<sub>4</sub> + H<sub>2</sub>↑."
+        },
+        {
+            question: "Câu 5: Dãy kim loại nào trong các dãy sau đây gồm các kim loại không tác dụng với dung dịch H<sub>2</sub>SO<sub>4</sub> đặc, nguội?",
+            options: [
+                "Al, Fe, Au, Pt.",
+                "Zn, Pt, Au, Mg.",
+                "Al, Fe, Zn, Mg.",
+                "Al, Fe, Au, Mg."
+            ],
+            correct: 0, // A
+            explanation: "Al, Fe, Cr bị thụ động hóa trong H<sub>2</sub>SO<sub>4</sub> đặc, nguội; còn Au và Pt là kim loại quý không phản ứng với H<sub>2</sub>SO<sub>4</sub> đặc."
+        },
+        {
+            question: "Câu 6: Khi làm thí nghiệm với H<sub>2</sub>SO<sub>4</sub> đặc, nóng thường sinh ra khí SO<sub>2</sub>. Để hạn chế tốt nhất khí SO<sub>2</sub> thoát ra gây ô nhiễm môi trường, người ta nút ống nghiệm bằng bông tẩm dung dịch nào sau đây?",
+            options: [
+                "Giấm ăn.",
+                "Muối ăn.",
+                "Cồn.",
+                "Xút."
+            ],
+            correct: 3, // D
+            explanation: "SO<sub>2</sub> là acidic oxide nên phản ứng tốt với dung dịch kiềm mạnh như xút (NaOH): SO<sub>2</sub> + 2NaOH → Na<sub>2</sub>SO<sub>3</sub> + H<sub>2</sub>O, giúp hấp thụ triệt để khí độc."
+        },
+        {
+            question: "Câu 7: Dãy gồm tất cả các chất đều tác dụng với dung dịch H<sub>2</sub>SO<sub>4</sub> loãng là:",
+            options: [
+                "Fe<sub>3</sub>O<sub>4</sub>, BaCl<sub>2</sub>, Ag, Al, Cu(OH)<sub>2</sub>.",
+                "Fe(OH)<sub>2</sub>, Na<sub>2</sub>CO<sub>3</sub>, Fe, CuO, NH<sub>3</sub>.",
+                "CaCO<sub>3</sub>, Cu, Al(OH)<sub>3</sub>, MgO, Zn.",
+                "Zn(OH)<sub>2</sub>, CaCO<sub>3</sub>, CuS, Al, Fe<sub>2</sub>O<sub>3</sub>."
+            ],
+            correct: 1, // B
+            explanation: "Tất cả các chất ở đáp án B đều phản ứng với H<sub>2</sub>SO<sub>4</sub> loãng. (Loại A vì Ag không phản ứng; loại C vì Cu không phản ứng; loại D vì CuS không tan trong acid loãng)."
+        },
+        {
+            question: "Câu 8: Trong điều kiện thích hợp, xảy ra các phản ứng sau:\n(a) 2H<sub>2</sub>SO<sub>4</sub> + C → 2SO<sub>2</sub> + CO<sub>2</sub> + 2H<sub>2</sub>O.\n(b) 6H<sub>2</sub>SO<sub>4</sub> + 2Fe → Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + 3SO<sub>2</sub> + 6H<sub>2</sub>O.\n(c) H<sub>2</sub>SO<sub>4</sub> + Fe(OH)<sub>2</sub> → FeSO<sub>4</sub> + 2H<sub>2</sub>O.\n(d) 4H<sub>2</sub>SO<sub>4</sub> + 2FeO → Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + SO<sub>2</sub> + 4H<sub>2</sub>O.\nTrong các phản ứng trên, phản ứng xảy ra với dung dịch H<sub>2</sub>SO<sub>4</sub> loãng là",
+            options: [
+                "(d).",
+                "(a).",
+                "(c).",
+                "(b)."
+            ],
+            correct: 2, // C
+            explanation: "Phản ứng (c) là phản ứng trao đổi acid – base thông thường, không có sự thay đổi số oxi hóa và không sinh khí SO<sub>2</sub> nên xảy ra với dung dịch H<sub>2</sub>SO<sub>4</sub> loãng."
+        },
+        {
+            question: "Câu 9: Cho hỗn hợp X gồm Mg và Fe vào dung dịch acid H<sub>2</sub>SO<sub>4</sub> đặc, nóng đến khi các phản ứng xảy ra hoàn toàn, thu được dung dịch Y và một phần Fe không tan. Chất tan có trong dung dịch Y là",
+            options: [
+                "MgSO<sub>4</sub> và FeSO<sub>4</sub>.",
+                "MgSO<sub>4</sub>.",
+                "MgSO<sub>4</sub> và Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub>.",
+                "MgSO<sub>4</sub>, Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> và FeSO<sub>4</sub>."
+            ],
+            correct: 0, // A
+            explanation: "Vì sau phản ứng còn dư một phần Fe không tan nên Fe dư đã khử toàn bộ ion Fe<sup>3+</sup> về Fe<sup>2+</sup> (Fe + Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> → 3FeSO<sub>4</sub>). Do đó dung dịch Y chỉ chứa MgSO<sub>4</sub> và FeSO<sub>4</sub>."
+        },
+        {
+            question: "Câu 10: Hỗn hợp (X) gồm Mg và Fe<sub>2</sub>O<sub>3</sub> có khối lượng 20 gam tan hết trong dung dịch H<sub>2</sub>SO<sub>4</sub> loãng, thoát ra a lít khí H<sub>2</sub> (đkc) và tạo thành dung dịch (Y). Thêm dung dịch NaOH dư vào dung dịch (Y) và lọc kết tủa, tách ra nung đến khối lượng không đổi thu được 28 gam chất rắn. Phần trăm khối lượng Mg trong hỗn hợp (X) là bao nhiêu %?",
+            options: [
+                "40%",
+                "50%",
+                "60%",
+                "70%"
+            ],
+            correct: 2, // C
+            explanation: "Gọi n<sub>Mg</sub> = x mol, n<sub>Fe<sub>2</sub>O<sub>3</sub></sub> = y mol → 24x + 160y = 20 (1).\nChất rắn sau khi nung kết tủa gồm MgO (x mol) và Fe<sub>2</sub>O<sub>3</sub> (y mol) → 40x + 160y = 28 (2).\nLấy (2) – (1) được 16x = 8 → x = 0,5 mol → m<sub>Mg</sub> = 0,5 × 24 = 12 gam → %m<sub>Mg</sub> = (12 / 20) × 100% = 60%."
+        }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let correctCount = 0;
+    let soundEnabled = true;
+    let questionStartTime = 0;
+    let userHistory = [];
+
+    // Tạo hiệu ứng âm thanh đúng/sai bằng Web Audio API
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playTone(isCorrect) {
+        if (!soundEnabled) return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (isCorrect) {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(523.25, now); // C5
+            osc.frequency.setValueAtTime(659.25, now + 0.09); // E5
+            osc.frequency.setValueAtTime(783.99, now + 0.18); // G5
+            gain.gain.setValueAtTime(0.25, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+            osc.start(now);
+            osc.stop(now + 0.45);
+        } else {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(220, now);
+            osc.frequency.linearRampToValueAtTime(150, now + 0.3);
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+            osc.start(now);
+            osc.stop(now + 0.35);
+        }
+    }
+
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        document.getElementById('soundToggle').textContent = soundEnabled ? '🔊' : '🔇';
+    }
+
+    function clearNameWarning() {
+        const nameInput = document.getElementById('studentName');
+        const nameWarning = document.getElementById('nameWarning');
+
+        if (nameInput.value.trim()) {
+            nameWarning.hidden = true;
+            nameInput.removeAttribute('aria-invalid');
+        }
+    }
+
+    function startQuiz() {
+        const nameInput = document.getElementById('studentName');
+        const nameWarning = document.getElementById('nameWarning');
+
+        if (!nameInput.value.trim()) {
+            nameWarning.hidden = false;
+            nameInput.setAttribute('aria-invalid', 'true');
+            nameInput.focus();
+            return;
+        }
+
+        nameWarning.hidden = true;
+        nameInput.removeAttribute('aria-invalid');
+
+        currentIdx = 0;
+        score = 0;
+        streak = 0;
+        maxStreak = 0;
+        correctCount = 0;
+        userHistory = [];
+
+        document.getElementById('startScreen').classList.remove('active');
+        document.getElementById('resultScreen').classList.remove('active');
+        document.getElementById('quizScreen').classList.add('active');
+
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const q = quizData[currentIdx];
+        questionStartTime = Date.now();
+
+        document.getElementById('questionCounter').textContent = `Câu ${currentIdx + 1} / ${quizData.length}`;
+        const acc = currentIdx === 0 ? 0 : Math.round((correctCount / currentIdx) * 100);
+        document.getElementById('accuracyDisplay').textContent = `Chính xác: ${acc}%`;
+        document.getElementById('progressFill').style.width = `${((currentIdx + 1) / quizData.length) * 100}%`;
+        document.getElementById('streakCount').textContent = streak;
+        document.getElementById('scoreCount').textContent = score;
+
+        const feedbackPanel = document.getElementById('feedbackPanel');
+        feedbackPanel.className = 'feedback-panel';
+        feedbackPanel.style.display = 'none';
+        document.getElementById('nextBtn').style.display = 'none';
+
+        document.getElementById('questionText').innerHTML = q.question;
+
+        const mcqContainer = document.getElementById('mcqContainer');
+        mcqContainer.innerHTML = '';
+
+        const letters = ['A', 'B', 'C', 'D'];
+        q.options.forEach((optText, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.setAttribute('data-index', idx);
+            btn.innerHTML = `
+                <span class="option-letter">${letters[idx]}</span>
+                <span>${optText}</span>
+            `;
+            btn.onclick = () => handleMcqSelect(idx);
+            mcqContainer.appendChild(btn);
+        });
+    }
+
+    function handleMcqSelect(selectedIdx) {
+        const q = quizData[currentIdx];
+        const buttons = document.querySelectorAll('.option-btn');
+        const isCorrect = selectedIdx === q.correct;
+
+        buttons.forEach((btn, idx) => {
+            btn.disabled = true;
+            if (idx === q.correct) {
+                btn.classList.add('correct-ans');
+            } else if (idx === selectedIdx && !isCorrect) {
+                btn.classList.add('wrong-ans');
+            } else {
+                btn.classList.add('dimmed');
+            }
+        });
+
+        playTone(isCorrect);
+
+        const elapsedSec = (Date.now() - questionStartTime) / 1000;
+        let earnedPoints = 0;
+
+        if (isCorrect) {
+            correctCount++;
+            streak++;
+            if (streak > maxStreak) maxStreak = streak;
+            const speedBonus = Math.max(0, Math.round(300 - elapsedSec * 10));
+            const streakBonus = streak >= 2 ? 100 : 0;
+            earnedPoints = 700 + speedBonus + streakBonus;
+            score += earnedPoints;
+        } else {
+            streak = 0;
+        }
+
+        document.getElementById('streakCount').textContent = streak;
+        document.getElementById('scoreCount').textContent = score;
+        const acc = Math.round((correctCount / (currentIdx + 1)) * 100);
+        document.getElementById('accuracyDisplay').textContent = `Chính xác: ${acc}%`;
+
+        const letters = ['A', 'B', 'C', 'D'];
+        const userAnswerText = `${letters[selectedIdx]}. ${q.options[selectedIdx]}`;
+        const correctAnswerText = `${letters[q.correct]}. ${q.options[q.correct]}`;
+
+        userHistory.push({
+            question: q.question,
+            userAnswer: userAnswerText,
+            correctAnswer: correctAnswerText,
+            isCorrect: isCorrect,
+            explanation: q.explanation
+        });
+
+        const panel = document.getElementById('feedbackPanel');
+        const header = document.getElementById('feedbackHeader');
+        const expEl = document.getElementById('feedbackExplain');
+
+        if (isCorrect) {
+            panel.className = 'feedback-panel correct';
+            header.innerHTML = `✅ Chính xác! (+${earnedPoints} điểm)`;
+        } else {
+            panel.className = 'feedback-panel wrong';
+            header.innerHTML = `❌ Chưa chính xác! Đáp án đúng là: ${correctAnswerText}`;
+        }
+
+        expEl.innerHTML = `<strong>Giải thích:</strong> ${q.explanation}`;
+        panel.style.display = 'block';
+
+        const nextBtn = document.getElementById('nextBtn');
+        nextBtn.textContent = currentIdx === quizData.length - 1 ? 'Xem kết quả tổng kết 🏆' : 'Câu tiếp theo ➔';
+        nextBtn.style.display = 'inline-flex';
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if (currentIdx < quizData.length) {
+            renderQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        document.getElementById('quizScreen').classList.remove('active');
+        document.getElementById('resultScreen').classList.add('active');
+
+        const studentName = document.getElementById('studentName').value.trim();
+        const accuracy = Math.round((correctCount / quizData.length) * 100);
+
+        document.getElementById('finalScore').textContent = score.toLocaleString('vi-VN');
+        document.getElementById('finalCorrect').textContent = `${correctCount}/${quizData.length}`;
+        document.getElementById('finalAccuracy').textContent = `${accuracy}%`;
+        document.getElementById('maxStreak').textContent = maxStreak;
+
+        const greetingEl = document.getElementById('resultGreeting');
+        const trophyEl = document.getElementById('trophyIcon');
+        if (accuracy >= 80) {
+            trophyEl.textContent = '🏆';
+            greetingEl.textContent = studentName ? `Xuất sắc, ${studentName}!` : 'Hoàn thành xuất sắc!';
+        } else if (accuracy >= 50) {
+            trophyEl.textContent = '👏';
+            greetingEl.textContent = studentName ? `Làm tốt lắm, ${studentName}!` : 'Hoàn thành bài luyện tập!';
+        } else {
+            trophyEl.textContent = '💪';
+            greetingEl.textContent = studentName ? `Cố gắng thêm nhé, ${studentName}!` : 'Hãy ôn lại lý thuyết và thử lại nhé!';
+        }
+
+        const reviewList = document.getElementById('reviewList');
+        reviewList.innerHTML = '';
+
+        userHistory.forEach((item) => {
+            const div = document.createElement('div');
+            div.className = `review-item ${item.isCorrect ? 'is-correct' : 'is-wrong'}`;
+            div.innerHTML = `
+                <div class="review-q">${item.question}</div>
+                <div class="review-ans">
+                    Bạn chọn: <strong style="color: ${item.isCorrect ? '#16a34a' : '#dc2626'}">${item.userAnswer}</strong>
+                    ${!item.isCorrect ? ` • Đáp án đúng: <strong style="color: #16a34a">${item.correctAnswer}</strong>` : ''}
+                </div>
+                <div class="review-exp"><strong>Giải thích:</strong> ${item.explanation}</div>
+            `;
+            reviewList.appendChild(div);
+        });
+    }
+
+    function restartQuiz() {
+        document.getElementById('resultScreen').classList.remove('active');
+        document.getElementById('startScreen').classList.add('active');
+    }
+</script>
+
+</body>
+</html>
